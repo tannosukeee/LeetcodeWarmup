@@ -9,7 +9,14 @@ def merge_sorted_lists(lst1, lst2):
         else:
             result.append(lst2[j])
             j += 1
-    
+    while i < len(lst1):
+        result.append(lst1[i])
+        i += 1
+
+    while j < len(lst2):
+        result.append(lst2[j])
+        j += 1
+
     return result
 
 lst1 = [1, 3, 5]
