@@ -5,4 +5,14 @@ class Player():
 		self.items = []
 		
 	def set_player(self, name):
-		pass
+		valid_names = ["Mario", "Luigi", "Peach", "Yoshi", "Toad", "Wario", "Donkey Kong", "Bowser"]
+		if name in valid_names:
+			self.character = name
+			print("Character updated")
+		else:
+			print("Invalid character")
+	
+player_one = Player("Yoshi", "Super Blooper")
+player_two = Player("Bowser", "Pirahna Prowler")
+player_one.set_player("Peach")
+player_two.set_player("Kermit")
