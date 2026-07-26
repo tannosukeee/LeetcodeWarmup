@@ -1,204 +1,158 @@
+#Problem 1
+
 '''
-1. Understand:
-- Create a 1 object Card and assign it into variable named card
-
-2. Match:
-card = Card(arg1, arg2)
-
-3. Plan:
-- Use a class name Card
-- Pass "Spades" as the first argument
-- Pass "8" as the second argument
-- Store the new object into card
-
+1.Understand
+Output: boolean so t or f
+input: root/treenode
+2. Match: Binary search
+3.Plan
+-define the function 
+-check if there no treenode return false
+- iterate through each node and check if the value is equal to the root value 
+- return false if the current node value is not equal to the root value 
+-keep iterating if current node value is true until reach the end and there is no node left
 4. Implement
-'''
-
-class Card():
-	def  __init__(self, suit, rank):
-		self.suit = suit
-		self.rank = rank
-
-card = Card("Spares", "8")
-
-'''
 5. Review
-'''
-print(card.suit)
-print(card.rank)
-
-'''
-6. Evaluate:
-- Time complexity: O(1)
-- Space complexity: O(1)
-'''
-
-'''
-Problem 2
-
-1. Understand:
--edit card class with a method called print_card
-
-2. Match:
-print_card(self)
-
-3. Plan:
--define function print_card with self as parameter
--store clubs for suit 
--store ace for rank
--call the print method 
-
-4. Implement
-'''
-def print_card(self):
-	print(f"{self.rank} of {self.suit}")
-
-card = Card("Clubs", "Ace")	
-print_card(card)
-
-'''
-5.Review 
-'''
-
-
-#Evaluate:
-#time complexity 0(1)
-#space complexity 0(1)
-
-'''
-1. Understand:
-- Change the suit of card to "Hearts"
-
-2. Match:
-- card.suit = arg
-
-3. Plan:
-- Change suit of card by calling card.suit equal to Hearts
-
-4. Implement:
-'''
-card.suit = "Hearts"
-
-'''
-5. Review
-'''
-print_card(card)
-
-'''
 6. Evaluate
-- Time complexity: O(1)
-- Space complexity: O(1)
 '''
+class TreeNode():
+    def __init__(self, value, left=None, right=None):
+        self.val = value
+        self.left = left
+        self.right = right
 
-''''
-1. Understand:
--make new method is_valid return true if suit is one of the values and rank is one of the values 
+def is_univalued_helper(root, value):
+    if not root:
+        return True
+    if root.val != value:
+        return False
+    return is_univalued_helper(root.left, value) and is_univalued_helper(root.right, value)
 
-2. Match 
-is_valid(self)
-
-2. Plan:
--define function is_valid with self as parameter
--return true if suit is in the following values: "Hearts, "Spades", "Clubs", "Diamonds"
--return true if rank has the following values 
--retirm false of dpesnt meet the above conditions
-
-'''
-
-class Card():
-	def __init__(self, suit, rank):
-		self.suit = suit
-		self.rank = rank
-	
-	def is_valid(self):
-		valid_suits = ["Hearts", "Spades", "Clubs", "Diamonds"]
-		valid_rank = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"]
-		
-		if self.suit in valid_suits and self.rank in valid_rank:
-			return True
-		else:
-			return False
+def is_univalued(root):
+    if not root:
+        return False
+    return is_univalued_helper(root.left, root.val) and is_univalued_helper(root.right, root.val)
+# 5. Review
+n1 = TreeNode(1)
+n2 = TreeNode(1)
+n3 = TreeNode(1)
+n4 = TreeNode(1, n1, n2)
+n5 = TreeNode(2, None, n3)
+n6 = TreeNode(1, n4, n5)
+ 
+print(is_univalued(n6))
 
 '''
-5. Review
+5: Evaluate
+- Time complexity: O(n)
+- Space complexity: O(n)
 '''
 
-my_card = Card("Hearts", "7")
-print(my_card.is_valid())
 
-second_draw = Card("Spades", "Joker")
-print(second_draw.is_valid())
 
 '''
-1. Understand:
-- The function get_value() receive the rank of card as a input and return a integer based off the rank
-
-2. Match:
-card.get_value()
-
-3. Plan:
-- Define the function get_value()
-- Make a list of integer has all the rank number in card (have to be integers)
-- Check if card.rank in the list of integer or not, if yes, return card.rank
-- Check if card.rank is "Ace", if yes, return 1
-- Check if card.rank is "Jack", if yes, return 11
-- Check if card.rank is "Queen", if yes, return 12
-- Check if card.rank is "King", if yes, return 13
-- Else, return None
-
-4. Implement:
+Understand:
+-input :treenode
+-output: integer
+Match: binary search
+Plan:
+-define the function height()
+-check if the root is none 
+- if root is none return 0
+- define left = height(root.left)
+- define right = height(root.right)
+- return 1 + max(height(root.left), height(root.right))
+Implement
 '''
+class TreeNode():
+    def __init__(self, value, left=None, right=None):
+        self.val = value
+        self.left = left
+        self.right = right
+   
+def height(root):
+    if not root:
+        return 0
+    left = height(root.left)
+    right = height(root.right)
+    return 1 + max(left, right)
 
-class Card():
-	def __init__(self, suit, rank):
-		self.suit = suit
-		self.rank = rank
-	
-	def is_valid(self):
-		valid_suits = ["Hearts", "Spades", "Clubs", "Diamonds"]
-		valid_rank = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"]
-		
-		if self.suit in valid_suits and self.rank in valid_rank:
-			return True
-		else:
-			return False
-	def get_value(self):
-		rank_int = ["2", "3", "4", "5", "6", "7", "8", "9", "10"]
-		if self.rank in rank_int:
-			return self.rank
-		elif self.rank == "Ace":
-			return 1
-		elif self.rank == "Jack":
-			return 11
-		elif self.rank == "Queen":
-			return 12
-		elif self.rank == "King":
-			return 13
-		else:
-			return None
+# Review
+n1 = TreeNode(1)
+n2 = TreeNode(3)
+n3 = TreeNode(2, n1, n2)
+n4 = TreeNode(5)
+n5 = TreeNode(4, n3, n4)
+print(height(n2)) 
 
 '''
-5. Review
-'''
-card = Card("Hearts", "7")
-print(card.get_value())
-
-card_two = Card("Spades", "Jack")
-print(card_two.get_value())
-
-'''
-6. Evaluate:
-- Time complexity: O(1)
-- Space complexity: O(1)
+5: Evaluate
+- Time complexity: O(n)
+- Space complexity: O(n)
 '''
 
 '''
-1. Understand:
--create a new class called hand and implement add card and remove card method
+Understand
+-input: root/treenode, key, value
+-output: treenode
+Match: binary search
+Pln:
+-define the function
+-check if the root is none return TreeNode(key, value)
+-if key < root.key then call insert(root.left, key, value)
+-elif key > root.key then call insert(root.right, key, value)
+-else then set root.val = value
+-return root
 
-2. Match:
-class Hand():
-	add_card(self, card)'
-	''
+Implement:
+'''
+class TreeNode():
+    def __init__(self, key, value, left=None, right=None):
+        self.key = key
+        self.val = value
+        self.left = left
+        self.right = right
+   
+def insert(root, key, value):
+    if not root:
+        return TreeNode(key, value)
+    if key < root.key:
+        left = insert(root.left, key, value)
+    elif key > root.key:
+        right = insert(root.right, key, value)
+    else:
+        root.val = value
+    return root
 
-#thank you
+# Review
+def print_tree(root, level=0, prefix="Root: "):
+    if not root:
+        return
+    
+    print(" " * (level * 4) + prefix + f"key={root.key}, val={root.val}")
+    
+    if root.left or root.right:
+        if root.left:
+            print_tree(root.left, level + 1, "L--- ")
+        else:
+            print(" " * ((level + 1) * 4) + "L--- None")
+        
+        if root.right:
+            print_tree(root.right, level + 1, "R--- ")
+        else:
+            print(" " * ((level + 1) * 4) + "R--- None")
+
+
+node1 = TreeNode(1, 'One')
+node6 = TreeNode(6, 'Six')
+node5 = TreeNode(5, 'Five', left=node1, right=node6)
+node15 = TreeNode(15, 'Fifteen')
+root = TreeNode(10, 'Ten', left=node5, right=node15)
+print_tree(root)
+root = insert(root, 9, 'Naruto')
+print_tree(root)
+
+
+#Done, make sure u copied all of them 
+
+#thank you :)

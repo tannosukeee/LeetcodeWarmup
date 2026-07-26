@@ -29,23 +29,20 @@ class Node:
         self.next = next
 
 def binary_to_int(head):
-	# first get length 
-    n = 0
-    curr = head 
-    while (curr):
-        n+=1
-        curr= curr.next 
+    if head == None:
+        return head
+    result = 0
+    curr = head
+    while curr:
+        result = result * 2 + curr.value
+        curr = curr.next
+    return result
 
-    res = 0
-    curr = head 
-    i = 0
-    while(curr):
-        res+=2**(n-i)*curr.value
-        i+=1
-    return res 
+# 1 -> 0 -> 1
+num3 = Node(1)
+num2 = Node(0, num3)
+num1 = Node(1, num2)   # head of the list
 
-def test():
-    binary = Node(1, Node(0, Node(1)))
-    print(binary_to_int(binary))
-
-test()
+int_num = binary_to_int(num1)
+# 101 in binary is 5
+print(int_num)  # Output: 5
